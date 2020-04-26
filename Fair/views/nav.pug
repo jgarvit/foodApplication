@@ -1,0 +1,41 @@
+if(page)
+   header
+    nav
+        ul.nav-ul
+            li.nav-list
+                a.nav-links(href='#features') Features
+            li.nav-list
+                a.nav-links(href='#details') Details
+            li.nav-list
+                a.nav-links(href='#review') Reviews
+            li.nav-list
+                a.nav-links(href='#plans') Plans
+            li.nav-list
+                if(user)
+                    a.nav-links(href='signup') #{user.name}
+                else
+                    a.nav-links(href='signup') signup
+
+    .showcase
+        h1.main-heading
+            | MEAL PLANS.
+            br
+            |  FOR 
+            span#spans.span-detector
+        .btns-container
+            a.btn.btn-full(href='') Book Now
+            a.btn.btn-empty(href='') Show me more
+
+else
+    nav.sticky(style="position:relative")
+        ul.nav-ul
+            li.nav-list
+                a.nav-links(href='#features') Features
+            li.nav-list
+                a.nav-links(href='#details') Details
+            li.nav-list
+                a.nav-links(href='#review') Reviews
+            li.nav-list
+                a.nav-links(href='#plans') Plans
+            li.nav-list
+                a.nav-links(href='signup') Signup
