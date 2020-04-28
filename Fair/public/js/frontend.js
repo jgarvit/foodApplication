@@ -115,7 +115,7 @@ if (createBtn) {
     const price = d.querySelector("#price").value;
     const discount = d.querySelector("#discount").value;
 
-   console.log(name);
+    console.log(name);
     createPlanHelper(name, description, ratingsAverage, price, discount);
   })
 }
