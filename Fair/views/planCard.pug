@@ -1,13 +1,14 @@
 .container
-    h3 #{plan.name}
+    h3(style="font-size: 2rem") #{plan.name}
     p
         span $#{plan.price}
         |  /month
         br
-        |                     That is only $13.03 per meal
+        |                     That is only $#{+plan.price/30} per day
     hr.hr
     ul
-        li 1 meal everyday
+        li #{plan.description}
+        li Rating : #{plan.ratingsAverage}
         li Order 24/7
         li Free delivery
         li Hassle free payments

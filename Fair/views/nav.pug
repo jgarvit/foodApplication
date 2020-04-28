@@ -3,18 +3,21 @@ if(page)
     nav
         ul.nav-ul
             li.nav-list
-                a.nav-links(href='#features') Features
+                a.nav-links(href='#fetures') FEATURES
             li.nav-list
-                a.nav-links(href='#details') Details
+                a.nav-links(href='#details') DETAILS
             li.nav-list
-                a.nav-links(href='#review') Reviews
+                a.nav-links(href='#review') REVIEWS
             li.nav-list
-                a.nav-links(href='#plans') Plans
-            li.nav-list
-                if(user)
-                    a.nav-links(href='signup') #{user.name}
-                else
-                    a.nav-links(href='signup') signup
+                a.nav-links(href='#plans') PLANS
+            if user
+                li.nav-list
+                    a.nav-links(href='/profilePage') #{user.name}
+                li.nav-list
+                    a.nav-links(href='javascript:;').logout LOGOUT
+            else
+                li.nav-list
+                    a.nav-links(href='/login') LOGIN
 
     .showcase
         h1.main-heading
@@ -30,12 +33,18 @@ else
     nav.sticky(style="position:relative")
         ul.nav-ul
             li.nav-list
-                a.nav-links(href='#features') Features
+                a.nav-links(href='/') FEATURES
             li.nav-list
-                a.nav-links(href='#details') Details
+                a.nav-links(href='/') DETAILS
             li.nav-list
-                a.nav-links(href='#review') Reviews
+                a.nav-links(href='/') REVIEWS
             li.nav-list
-                a.nav-links(href='#plans') Plans
-            li.nav-list
-                a.nav-links(href='signup') Signup
+                a.nav-links(href='/plans') PLANS
+            if user
+                li.nav-list
+                    a.nav-links(href='/profilePage') #{user.name}
+                li.nav-list
+                    a.nav-links(href='javascript:;').logout LOGOUT
+            else
+                li.nav-list
+                    a.nav-links(href='/login') LOGIN

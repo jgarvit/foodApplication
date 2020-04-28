@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-
-app.use(express.json());
+const cookieParser = require("cookie-parser");
 const planRouter = require("./router/planRouter");
 const userRouter = require("./router/userRouter");
 const viewRouter = require("./router/viewRouter");
+app.use(cookieParser());
+app.use(express.json());
 
 app.set("view engine", "pug");
 app.set("views", "views");

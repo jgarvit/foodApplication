@@ -46,6 +46,13 @@ async function getForgetPasswordPage(req, res) {
     
     })
 }
+async function getProfilePage(req, res) {
+    const user = req.user;
+    res.render("profilePage.pug", {
+      title: "Profile Page",
+      user
+    })
+  }
 module.exports.getTestPage = getTestPage;
 module.exports.getPlanListingPage = getPlanListingPage;
 module.exports.getHomePage = getHomePage;
@@ -53,6 +60,7 @@ module.exports.getLoginPage = getLoginPage;
 module.exports.getSignupPage = getSignupPage;
 module.exports.getResetPasswordPage = getResetPasswordPage;
 module.exports.getForgetPasswordPage = getForgetPasswordPage;
+module.exports.getProfilePage = getProfilePage;
 
 
 
