@@ -53,6 +53,23 @@ async function getProfilePage(req, res) {
       user
     })
   }
+  async function getManagePlansPage(req, res) {
+    const user = req.user;
+    res.render("managePlans.pug", {
+      title: "Manage Plans Page",
+      user
+    })
+  } 
+  
+  async function getCreatePlansPage(req, res) {
+    const user = req.user;
+    res.render("createPlans.pug", {
+      title: "Create Plan Page",
+      
+    })
+  } 
+  
+  
 module.exports.getTestPage = getTestPage;
 module.exports.getPlanListingPage = getPlanListingPage;
 module.exports.getHomePage = getHomePage;
@@ -61,6 +78,8 @@ module.exports.getSignupPage = getSignupPage;
 module.exports.getResetPasswordPage = getResetPasswordPage;
 module.exports.getForgetPasswordPage = getForgetPasswordPage;
 module.exports.getProfilePage = getProfilePage;
+module.exports.getManagePlansPage = getManagePlansPage;
+module.exports.getCreatePlansPage = getCreatePlansPage;
 
 
 

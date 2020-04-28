@@ -171,6 +171,12 @@ header{
     /* flex-wrap: wrap; if content overflows boundary then it is shifted to next line */
 
 }
+.container-parent-plan{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; 
+
+}
 .container{
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
     padding: 2.5rem;
@@ -331,6 +337,7 @@ footer{
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="number"],
 select,
 textarea{
     width: 100%;
