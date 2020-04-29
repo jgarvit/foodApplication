@@ -346,7 +346,9 @@ textarea{
     border: 2px solid  #e74c3c;
     border-radius: 2rem;
 }
-
+.form-entry input {
+    padding:1rem 0.5rem !important;
+}
 .form-entry:last-child{
     display: flex;
     justify-content: center;

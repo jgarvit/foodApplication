@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
 
 async function getMe(req, res) {
+  console.log("i was here");
   try {
     const id = req.id;
     // console.log(id);

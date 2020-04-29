@@ -13,15 +13,18 @@ async function getPlanListingPage(req, res) {
 }
 async function getHomePage(req, res) {
     const plans = await planModel.find();
+    const user = req.user;
     res.render("home.pug", {
         title: "Home Page",
-        plans:plans,page:"home"
+        plans:plans,page:"home",user
     })
 }
 async function getLoginPage(req, res) {
+    const user = req.user;
     // const plans = await planModel.find();
     res.render("login.pug", {
-        title: "Login Page",
+        title: "Login Page",user
+
     
     })
 }
@@ -43,7 +46,7 @@ async function getForgetPasswordPage(req, res) {
     // const plans = await planModel.find();
     res.render("forgetPassword.pug", {
         title: "forget password page",
-    
+        
     })
 }
 async function getProfilePage(req, res) {
@@ -62,9 +65,11 @@ async function getProfilePage(req, res) {
   } 
   
   async function getCreatePlansPage(req, res) {
+      console.log("inside create page");
     const user = req.user;
     res.render("createPlans.pug", {
       title: "Create Plan Page",
+      user
       
     })
   } 

@@ -14,7 +14,9 @@ async function loginHelper(email, password) {
     email, password
   })
   if (response.data.status == "successfull") {
-    alert("Login Successfull")
+    alert("Login Successfull");
+    // console.log(response.data);
+    // localStorage.setItem('user',response.data)
     window.location = '/profilePage';
   } else {
     alert("Try again");
@@ -35,7 +37,7 @@ async function signupHelper(email, password, confirmPassword, name) {
   });
   if (response.data.status == "user signed up") {
     alert("signup successfull")
-    window.location = '/home';
+    window.location = '/';
   } else {
     alert("try again")
 

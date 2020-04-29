@@ -19,17 +19,16 @@ async function createPlan(req, res) {
   // data
   try {
     const plan = await planModel.create(req.body);
+    console.log(plan);
     res.status(201).json({ status: "New Plan Created", plan });
   }
   catch (err) {
-
+    console.log(err);
     res.status(400).json({ err });
   }
 }
 async function getPlan(req, res) {
   try {
-
-
     const { planId } = req.params;
     const plan = await planModel.findById(planId);
     res.status(200).json({
