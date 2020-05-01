@@ -3,8 +3,8 @@ block content
   h2 #{user.role} Page
   .profile-container
     h2
-      p #{user.name}
-      p #{user.email}
-      if user.role=="admin"
-        a(href="/manageUsers") Manage Users
-        a(href="/managePlans") Manage Plans
+      p user: #{user.name}
+      p email: #{user.email}
+    if user.role=="admin"
+        a.btn.btn-full(href="/manageUsers") Manage Users
+        a.btn.btn-full(href="/managePlans") Manage Plans

@@ -382,4 +382,12 @@ textarea{
     align-items: center;
     height: 6rem;
   }
+.profile-container{
+    text-align: center;
+    padding: 5rem;
 
+}
+.profile-container p{
+    text-align: center;
+
+}

@@ -1,10 +1,18 @@
 extends base
 block content
-    a.btn.btn-full.signup(href='javascript:;') GET ALL PLANS
-    a.btn.btn-full.signup(href='/createPlans') CREATE PLANS
-    a.btn.btn-full.signup(href='javascript:;') GET PLAN
-    a.btn.btn-full.signup(href='javascript:;') UPDATE PLAN
-    a.btn.btn-full.signup(href='javascript:;') REMOVE PLAN
+    .body-bg
+        h2 MANAGE PLANS
+        .container
+            a.btn.btn-full(href='/plans') GET ALL PLANS
+        .container    
+            a.btn.btn-full(href='/createPlans') CREATE PLANS
+        .container
+            a.btn.btn-full(href='javascript:;') GET PLAN
+        .container
+            a.btn.btn-full(href='javascript:;') UPDATE PLAN
+        .container
+            a.btn.btn-full(href='javascript:;') REMOVE PLAN
 
-                
-                
+                    
+        
+                    
