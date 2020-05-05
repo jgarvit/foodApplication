@@ -121,3 +121,7 @@ if (createBtn) {
     createPlanHelper(name, description, ratingsAverage, price, discount);
   })
 }
+
+if(updateProfile){
+  
+}

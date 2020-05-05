@@ -391,3 +391,16 @@ textarea{
     text-align: center;
 
 }
+
+.plan-container{
+    /* box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175); */
+    padding: 1.5rem;
+    margin-right: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.plan-container:hover{
+    transform: scale(1.1);
+    transition-delay: 2ms;
+ 
+}
