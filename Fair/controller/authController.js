@@ -9,10 +9,10 @@ async function signup(req, res) {
     const user = await userModel.create(req.body);
     res.status(201).json({
       status: "user signed up",
-      user
-    })
+      user,
+    });
   } catch (err) {
-    res.status(400).json({ err: err.message })
+    res.status(400).json({ err: err.message });
   }
 }
 async function login(req, res) {
@@ -25,42 +25,40 @@ async function login(req, res) {
         // jwt
         const { _id } = user;
         const token = jwt.sign({ id: _id }, JWT_SECRET, {
-          expiresIn: Date.now() + 1000 * 60 * 30
-        })
+          expiresIn: Date.now() + 1000 * 60 * 30,
+        });
         // console.log("I was here");
         // console.log(token);
         res.cookie("jwt", token, { httpOnly: true });
         return res.status(200).json({
           status: "successfull",
-          token
-        })
-
+          token,
+        });
       } else {
-        throw new Error("user or password didn't match")
+        throw new Error("user or password didn't match");
       }
     } else {
       throw new Error("user or password didn't match ");
     }
   } catch (err) {
-    console.log("Inside catch")
+    console.log("Inside catch");
     console.log(err);
     res.json({
-      err: err.message
-    })
+      err: err.message,
+    });
   }
 }
 // authenticate => user
 async function protectRoute(req, res, next) {
   try {
-    // headers 
-    let token
+    // headers
+    let token;
     if (req.headers && req.headers.authorization) {
       token = req.headers.authorization.split(" ").pop();
       // console.log(token)
     } else if (req.cookies && req.cookies.jwt) {
       token = req.cookies.jwt;
-    }
-    else {
+    } else {
       throw new Error("Please provide a token");
     }
     if (token) {
@@ -77,27 +75,25 @@ async function protectRoute(req, res, next) {
     } else {
       throw new Error("Please login again to access this route ");
     }
-
   } catch (err) {
     // console.log(err);
     res.status(200).json({
       status: "unsuccessfull",
-      err: err.message
-    })
+      err: err.message,
+    });
   }
 }
 async function isUserLoggedIn(req, res, next) {
   try {
-    // headers 
-    let token
+    // headers
+    let token;
     if (req.headers && req.headers.authorization) {
       token = req.headers.authorization.split(" ").pop();
       // console.log(token)
     } else if (req.cookies && req.cookies.jwt) {
       token = req.cookies.jwt;
-    }
-    else {
-      console.log(token)
+    } else {
+      console.log(token);
       return next();
     }
     console.log(token);
@@ -117,13 +113,12 @@ async function isUserLoggedIn(req, res, next) {
     } else {
       return next();
     }
-
   } catch (err) {
     console.log("I was in catch user");
     res.status(200).json({
       status: "unsuccessfull",
-      err: err.message
-    })
+      err: err.message,
+    });
   }
 }
 // authorization
@@ -132,7 +127,7 @@ async function isAdmin(req, res, next) {
     const user = await userModel.findById(req.id);
     if (user) {
       if (user.role == "admin") {
-        next()
+        next();
       } else {
         throw new Error("User not authorized");
       }
@@ -147,29 +142,26 @@ async function isAdmin(req, res, next) {
 function isAuthorized(roles) {
   return async function (req, res, next) {
     try {
-
       const { id } = req;
       const user = await userModel.findById(id);
       console.log(user);
       const { role } = user;
       if (roles.includes(role) == true) {
-        next()
+        next();
       } else {
         throw new Error("You are not authorized ");
       }
     } catch (err) {
       console.log(err);
-      res.status(403).json(
-        { err: err.message }
-      )
+      res.status(403).json({ err: err.message });
     }
   };
 }
 async function logout(req, res) {
   res.cookie("jwt", "bgfdgcgf", { expires: new Date(Date.now() + 100) });
   res.json({
-    status: "logged Out"
-  })
+    status: "logged Out",
+  });
 }
 
 async function forgetPassword(req, res) {
@@ -183,49 +175,51 @@ async function forgetPassword(req, res) {
       // db => save
       // db => integrity ,consistency
       await user.save({ validateBeforeSave: false });
-      // email 
-      const resetPasswordLink = `http://localhost:3000/api/users/resetPassword/${token}`
+      // email
+      const resetPasswordLink = `http://localhost:3000/resetPassword/${token}`;
       const emailOptions = {};
       emailOptions.html = `<h1>Please click on the link to reset your password </h1>
-      <p>${resetPasswordLink}</p>
+      <a>${resetPasswordLink}</a>
       `;
       emailOptions.to = email;
-      emailOptions.from = "customersupport@everyone.com";
-      emailOptions.subject = "Reset Password Link"
+      emailOptions.from = "garvit1999jain@gmail.com";
+      emailOptions.subject = "Reset Password Link";
       await Email(emailOptions);
       res.status(200).json({
         resetPasswordLink,
-        status: `Email send to ${email}`
-      })
+        status: `Email send to ${email}`,
+      });
     } else {
       throw new Error("You does not exist");
     }
   } catch (err) {
     console.log(err);
     res.status(400).json({
-      err: err.message
-    })
+      err: err.message,
+    });
   }
 }
-async function resetPasswordhelper(req, res) {
+async function handleResetRequest(req, res, next) {
   try {
-    let token = req.params.token;
-    let user = await userModel.findOne({
-      resetToken: token
-    })
+    const { token } = req.params;
+    console.log(token);
+    let user = await userModel.findOne({ resetToken: token });
+
     if (user) {
       req.token = token;
-      return next()
+      console.log("220 " + req.token);
+      // console.log("I was inside");
+      next();
+
+      // token verify
     } else {
-      throw new Error(" Invalid URL ");
+      res.redirect("/somethingWentWrong");
     }
-  }catch(err){
-    console.log(err);
+  } catch (err) {
+    res.redirect("/somethingWentWrong");
   }
-
-
-
 }
+
 async function resetPassword(req, res) {
   try {
     const token = req.params.token;
@@ -236,8 +230,8 @@ async function resetPassword(req, res) {
         user.resetPasswordhelper(password, confirmPassword);
         await user.save();
         res.status(200).json({
-          success: "user password updated login with new password"
-        })
+          success: "user password updated login with new password",
+        });
       } else {
         throw new Error("token has expired");
       }
@@ -247,8 +241,8 @@ async function resetPassword(req, res) {
   } catch (err) {
     console.log(err);
     res.status(400).json({
-      err: err.message
-    })
+      err: err.message,
+    });
   }
   // resetPassword/svmbamvbd
   // db => svmbamvbd=> user search => user
@@ -263,13 +257,13 @@ module.exports.forgetPassword = forgetPassword;
 module.exports.resetPassword = resetPassword;
 module.exports.isUserLoggedIn = isUserLoggedIn;
 module.exports.logout = logout;
+module.exports.handleResetRequest = handleResetRequest;
 
 // login
 // user verify
-// protect Route 
+// protect Route
 // authorization
 
 //forgetPassword
 //resetPassword
 //updatepassword
-
