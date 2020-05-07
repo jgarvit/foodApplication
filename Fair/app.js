@@ -4,16 +4,31 @@ const cookieParser = require("cookie-parser");
 const planRouter = require("./router/planRouter");
 const userRouter = require("./router/userRouter");
 const viewRouter = require("./router/viewRouter");
-app.use(cookieParser());
+const bookingRouter = require("./router/bookingRouter");
+const reviewRouter = require("./router/reviewRouter");
+
+
+// 1 . middleware
+//  app.use(funtion f1(req,res,next){
+//   console.log("middleware the ran before express.json in f1"+req.body);
+//   next();
+// })
+// ----------------------------MIDDLEWARES----------------------------------------
 app.use(express.json());
-
-app.set("view engine", "pug");
-app.set("views", "views");
-app.use("/", viewRouter);
+app.use(cookieParser());
+// static folder
 app.use(express.static("public"));
+// express => rendering / template engine
+app.set("view engine", "pug");
+// view =>directory
+app.set("views", "views");
 
+app.use("/", viewRouter);
+app.use("/api/reviews", reviewRouter)
+app.use("/api/bookings", bookingRouter)
 app.use("/api/plans", planRouter)
 app.use("/api/users", userRouter)
+
 // wildcard
 app.use("*", function (req, res) {
   return res.status(404).json({

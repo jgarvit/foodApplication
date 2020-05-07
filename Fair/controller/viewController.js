@@ -6,9 +6,10 @@ function getTestPage(req, res) {
 }
 async function getPlanListingPage(req, res) {
   const plans = await planModel.find();
+  const user = req.user;
   res.render("planListing.pug", {
     title: "Plans page",
-    plans: plans,
+    plans: plans,user
   });
 }
 async function getHomePage(req, res) {

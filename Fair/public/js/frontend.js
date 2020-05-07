@@ -1,10 +1,14 @@
-let d = document;
-let loginBtn = d.querySelector(".login-button");
-let signupForm = d.querySelector(".signup");
-let forgetForm = d.querySelector(".forget");
-let logoutBtn = d.querySelector(".logout");
-let createBtn = d.querySelector(".create");
-let resetPasswordForm = d.querySelector(".reset");
+const d = document;
+const stripe = Stripe('pk_test_YyOOQ2jyOSaffqWdmdq5pIBL00wjUONCWC');
+const loginBtn = d.querySelector(".login-button");
+const signupForm = d.querySelector(".signup");
+const forgetForm = d.querySelector(".forget");
+const logoutBtn = d.querySelector(".logout");
+const createBtn = d.querySelector(".create");
+const resetPasswordForm = d.querySelector(".reset");
+const updateProfile = d.querySelector(".updateProfile");
+const paymentBtn = d.querySelector(".payment");
+
 
 
 async function loginHelper(email, password) {
@@ -88,6 +92,22 @@ async function resetPasswordHelper(password, confirmPassword, resetToken) {
   }
 }
 
+async function payementHelper(planId) {
+  const response = await axios.post("/api/bookings/createSession", { planId });
+  if (response.data.status) {
+    const { session } = response.data;
+    const id = session.id;
+    stripe.redirectToCheckout({
+      sessionId: id
+    }).then(function (result) {
+      alert(result.error.message);
+    });
+
+  } else {
+    alert("Payment failed");
+  }
+}
+
 if (signupForm) {
   signupForm.addEventListener("click", function (e) {
     // console.log("clicker")
@@ -154,5 +174,33 @@ if (resetPasswordForm) {
   })
 }
 
-// if (updateProfile) {
-// }
+async function updateProfileHelper(formData) {
+  let response = await axios.patch("/api/users/updateProfile", formData);
+  if (response.data.success) {
+    alert("profile Image uploaded")
+    location.reload();
+  }else{
+    alert("something went wrong");
+  }
+}
+
+if (updateProfile) {
+  updateProfile.addEventListener("change", function (e) {
+    e.preventDefault();
+    // multipart data send 
+    // Browser
+    const formData = new FormData();
+    formData.append("user", updateProfile.files[0]);
+    updateProfileHelper(formData);
+  })
+}
+
+if (paymentBtn) {
+  console.log("inside payment function");
+  paymentBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const planId = paymentBtn.getAttribute("plan-id");
+    // const planName = paymentBtn.getAttribute("name");
+    payementHelper(planId);
+  })
+}

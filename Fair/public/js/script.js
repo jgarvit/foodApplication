@@ -2,7 +2,7 @@
 const clients = ["Everyone", "Fitness Freaks", "Vegans", "Developers"];
 const h1 = document.getElementById("spans");
 function typewriter(clients, h1) {
-    let txt = "";
+    let txt = " ";
     let isDeleting = false;
     let wordIndex = 0;
     function typer() {

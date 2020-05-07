@@ -67,6 +67,7 @@ async function protectRoute(req, res, next) {
         const id = decryptedData.id;
         // console.log(id);
         // console.log(decryptedData)
+        const user = await userModel.findById(id);
         req.id = id;
         next();
       } else {

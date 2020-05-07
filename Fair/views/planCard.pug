@@ -4,7 +4,7 @@
         span $#{plan.price}
         |  /month
         br
-        |                     That is only $#{+plan.price/30} per day
+        |                     That is only $#{Math.ceil(+plan.price/30)} per day
     hr.hr
     ul
         li #{plan.description}
@@ -14,4 +14,8 @@
         li Hassle free payments
     hr.hr
     p
-    button.btn-plan Subscribe
+    if user
+        a.btn-plan(href='javascript:;', plan-id=`${plan["_id"]}`).payment Subscribe
+    else
+        a.btn-plan(href='/login') Subscribe
+
