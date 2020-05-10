@@ -224,12 +224,18 @@ async function handleResetRequest(req, res, next) {
 async function resetPassword(req, res) {
   try {
     const token = req.params.token;
-    const user = await userModel.findOne({ resetToken: token });
+    console.log("error " + token);
+    const user = await userModel.findOne({ resetToken : token });
+    console.log("my"+ user);
+    console.log(Date.now());
     if (user) {
-      if (Date.now() < user.expiresIn) {
+      // console.log(String(Date.now()) < String(user.expiresIn));
+      // console.log("12"<"13");
+      if (String(Date.now()) < String(user.expiresIn)) {
+        console.log("inside if condition");
         const { password, confirmPassword } = req.body;
         user.resetPasswordhelper(password, confirmPassword);
-        await user.save();
+        await user.save({ validateBeforeSave:true });
         res.status(200).json({
           success: "user password updated login with new password",
         });

@@ -54,7 +54,7 @@ userSchema.methods.createToken = function () {
   const token = crypto.randomBytes(32).toString("hex");
   // user
   this.resetToken = token
-  this.expiresIn = Date.now() + 100 * 1000 * 60;
+  this.expiresIn = Date.now() + 100*60*10000;
   // 
   return token;
 }

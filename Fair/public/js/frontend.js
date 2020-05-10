@@ -1,13 +1,15 @@
 const d = document;
-const stripe = Stripe('pk_test_YyOOQ2jyOSaffqWdmdq5pIBL00wjUONCWC');
+// const stripe = Stripe('pk_test_YyOOQ2jyOSaffqWdmdq5pIBL00wjUONCWC');
 const loginBtn = d.querySelector(".login-button");
 const signupForm = d.querySelector(".signup");
 const forgetForm = d.querySelector(".forget");
 const logoutBtn = d.querySelector(".logout");
 const createBtn = d.querySelector(".create");
-const resetPasswordForm = d.querySelector(".reset");
+const resetPasswordForm = document.querySelector(".reset");
 const updateProfile = d.querySelector(".updateProfile");
 const paymentBtn = d.querySelector(".payment");
+
+
 
 
 
@@ -80,6 +82,7 @@ async function createPlanHelper(
   }
 }
 async function resetPasswordHelper(password, confirmPassword, resetToken) {
+  console.log("inside reset helper");                                 
   const response = await axios.patch(`/api/users/resetPassword/${resetToken}`,
     {
       password, confirmPassword
@@ -168,8 +171,9 @@ if (resetPasswordForm) {
     e.preventDefault();
     let password = d.querySelector(".password").value;
     let confirmPassword = d.querySelector(".confirmPassword").value;
-    let token = d.querySelector("button[data-token]");
+    let token = resetPasswordForm.getAttribute("data-token");
     resetPasswordHelper(password, confirmPassword, token);
+    // console.log("new" + token);
 
   })
 }
@@ -201,6 +205,7 @@ if (paymentBtn) {
     e.preventDefault();
     const planId = paymentBtn.getAttribute("plan-id");
     // const planName = paymentBtn.getAttribute("name");
-    payementHelper(planId);
+    // payementHelper(planId);
+    console.log(planId);
   })
 }

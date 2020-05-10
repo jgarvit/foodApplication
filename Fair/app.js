@@ -28,15 +28,22 @@ app.use("/api/reviews", reviewRouter)
 app.use("/api/bookings", bookingRouter)
 app.use("/api/plans", planRouter)
 app.use("/api/users", userRouter)
+app.use("/*",)
 
 // wildcard
-app.use("*", function (req, res) {
-  return res.status(404).json({
-    status: "Resource not found",
-  });
+app.use("*", function (req, res, next) {
+  // error => error send
+  err= new errorExtender("page not found",404);
+  // express feature => error pass for error handling middleware
+  next(err);
 });
+app.use("*", function(err,req,res,next){
+  //isKnown, logical/unknown
+  err.statusCode=err.statusCode || 500
+})
 
-app.listen(3000, function () {
+const port=process.env.PORT || 3000;
+app.listen(port, function () {
   console.log("Server is listening at port 3000");
 });
 // http routes

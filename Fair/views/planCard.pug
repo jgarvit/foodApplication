@@ -15,7 +15,10 @@
     hr.hr
     p
     if user
-        a.btn-plan(href='javascript:;', plan-id=`${plan["_id"]}`).payment Subscribe
+        .login-form-entry
+            a.btn.btn-full(href='javascript:;', plan-id=`${plan["_id"]}`).payment Subscribe
+            a.btn.btn-full(href='javascript:;', plan-id=`${plan["_id"]}`).createReview Review
+            
     else
         a.btn-plan(href='/login') Subscribe
 

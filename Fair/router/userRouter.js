@@ -33,7 +33,7 @@ userRouter.post("/signup", signup)
 userRouter.post("/login", login)
 userRouter.get("/profilePage", protectRoute, getMe);
 userRouter.patch("/forgetPassword", forgetPassword)
-userRouter.patch("/resetPassword/:tokeplan", resetPassword);
+userRouter.patch("/resetPassword/:token", resetPassword);
 userRouter.get("/logout", logout);
 
 // login 
