@@ -24,11 +24,11 @@ app.set("view engine", "pug");
 app.set("views", "views");
 
 app.use("/", viewRouter);
-app.use("/api/reviews", reviewRouter)
+// app.use("/api/reviews", reviewRouter)
 app.use("/api/bookings", bookingRouter)
 app.use("/api/plans", planRouter)
 app.use("/api/users", userRouter)
-app.use("/*",)
+// app.use("/*",)
 
 // wildcard
 app.use("*", function (req, res, next) {
